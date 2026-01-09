@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="navigation">
+        <p>Riget Zoo Adventure</p>
+        <ul>
+            <li><a>Registration</a></li>
+            <li><a>Sign In</a></li>
+            <li><a>About Us</a></li>
+        </ul>
+    </div>
+
+    <div class="container">
+        <div class="photo"><img  src="Images/Banner.jpg"></div>
+        <div class="title"><h2>Welcome to Riget Zoo Adventures</h2></div>
+        <div class="text"><p>Here at Riget Zoo Adventures, We want everybodyt o have the best time of their lifes</p></div>
+    </div>
+
+    <div class="Aboutus-class">
+        <h2 class="head">About Us</h2><br>
+        <p>Riget Zoo Adventures (RZA) operates as a safari-style wildlife zoo that also offers on-site accommodation and structured educational visits
+         for schools and organised groups. 
+        Like many organisations in the tourism and leisure sector</p>
+    </div>
+
+    <form class="Registration">
+        <h2 class="reg-head">Registration</h2><br>
+        <label class="label-firstname">First Name</label><br>
+        <input class="input-firstname" type="text" placeholder="e.g John" id="firstName"><br>
+        <label class="label-lastname">Last Name</label><br>
+        <input class="input-lastname" type="text" placeholder="e.g Doe" id="lastName"><br>
+        <label class="label-email">Email</label><br>
+        <input class="input-email" type="email" placeholder="e.g example@gmail.com" id="email"><br>
+        <label class="label-password">Password</label><br>
+        <input class="input-password" type="password" id="password"><br><br>
+
+        <button id="submit">Submit</button>
+    </form>
+
+    <footer>
+        <h2>Riget Zoo Adventure</h2>
+        <p>All rights reserved 2026</p>
+    </footer>
+
+    <script>
+        let emailInput = document.getElementById("email").value
+        let passwordInput = document.getElementById("password").value
+
+        function validate_password (){
+            if(passwordInput < 6){
+                document.getElementById("message").textContent = "Password Must be at least 7 characters"
+            }else if(passwordInput){}
+        }
+
+
+
+
+    </script>
+    
+</body>
+</html>
