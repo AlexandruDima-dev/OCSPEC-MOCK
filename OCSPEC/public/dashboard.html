@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="navigation">
+    <p>Riget Zoo Adventure</p>
+
+    <ul>
+        <li>
+            <div class="dropdown">
+                <button onclick="toggleDropdown()" class="dropbtn">
+                    <img src="/public/Images/profile pic.png" alt="Profile">
+                </button>
+
+                <div id="dropdown" class="dropdown-content">
+                    <a href="#">Setting</a><br>
+                    <a href="#">Your Bookings</a><br>
+                    <a href="#">Logout</a>
+                </div>
+            </div>
+        </li>
+
+        <li><a>Educational Visits</a></li>
+        <li><a>Bookings</a></li>
+    </ul>
+</div>
+
+<div class="container" id="time">
+    
+</div>
+
+
+
+
+<!-- SCRIPT FOR ACCOUNT DROPDOWN -->
+<script>
+function toggleDropdown() {
+    document.getElementById("dropdown").classList.toggle("show");
+}
+
+window.onclick = function (event) {
+    if (!event.target.closest(".dropbtn")) {
+        document.getElementById("dropdown").classList.remove("show");
+    }
+};
+</script>
+
+</body>
+</html>
