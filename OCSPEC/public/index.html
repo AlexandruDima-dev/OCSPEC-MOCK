@@ -29,18 +29,19 @@
         Like many organisations in the tourism and leisure sector</p>
     </div>
 
-    <form class="Registration">
+    <form class="Registration" id="form" action="/dashboard" method="POST">
         <h2 class="reg-head">Registration</h2><br>
         <label class="label-firstname">First Name</label><br>
-        <input class="input-firstname" type="text" placeholder="e.g John" id="firstName"><br>
+        <input class="input-firstname" type="text" placeholder="e.g John" id="firstName" name="firstName"><br>
         <label class="label-lastname">Last Name</label><br>
-        <input class="input-lastname" type="text" placeholder="e.g Doe" id="lastName"><br>
+        <input class="input-lastname" type="text" placeholder="e.g Doe" id="lastName" name="lastName"><br>
         <label class="label-email">Email</label><br>
-        <input class="input-email" type="email" placeholder="e.g example@gmail.com" id="email"><br>
+        <input class="input-email" type="email" placeholder="e.g example@gmail.com" id="email" name="email"><br>
         <label class="label-password">Password</label><br>
-        <input class="input-password" type="password" id="password"><br><br>
+        <input class="input-password" type="password" id="password-id" name="password"><br><br>
 
         <button id="submit">Submit</button>
+        <p id="error"></p>
     </form>
 
     <footer>
@@ -49,14 +50,40 @@
     </footer>
 
     <script>
-        let emailInput = document.getElementById("email").value
-        let passwordInput = document.getElementById("password").value
+        let firstName = document.getElementById("firstName")
+        let lastName = document.getElementById("lastName")
+        let emailInput = document.getElementById("email")
+        let passwordInput = document.getElementById("password-id")
+        let form =document.getElementById("form")
+        let errorMessage = document.getElementById("error")
 
-        function validate_password (){
-            if(passwordInput < 6){
-                document.getElementById("message").textContent = "Password Must be at least 7 characters"
-            }else if(passwordInput){}
-        }
+        form.addEventListener('submit', (e)=>{
+            let messages = []
+
+            if(firstName.value === "" || firstName.value == null){
+                messages.push("Please Input a Name");
+            } else if(lastName.value === "" || lastName.value == null){
+                messages.push("Please Input Your last name")
+            } else if(emailInput.value === "" || emailInput.value == null){
+                messages.push("Please Input Your Email")
+            } else if(!emailInput.value.includes("@") && !emailInput.value.includes(".com").value){
+                messages.push("Please Input A Valid Email")
+            } else if(passwordInput.value === "" || passwordInput.value == null){
+                messages.push("Please Input A Password")
+            } else if(passwordInput.value.length < 6){
+                messages.push("Please Input more than 6 characters")
+            }
+
+
+
+            if(messages.length > 0){
+                e.preventDefault()
+                errorMessage.textContent = messages.join(",")
+            }
+        })
+
+
+
 
 
 
