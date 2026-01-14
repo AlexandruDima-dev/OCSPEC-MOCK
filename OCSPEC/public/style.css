@@ -207,6 +207,7 @@ footer{
   color: #ddd;
   padding: 20px;
   border-radius: 14px;
+  margin: 30px;
 }
 
 .table-class table, th, td{
@@ -221,20 +222,22 @@ footer{
   color: antiquewhite;
   padding: 20px;
   border-radius: 14px;
+  margin: 30px;
 }
 
 
 /* ===== EVENTS / CALENDAR ===== */
 .events {
     grid-column: span 2;
-    background: #1a1a1a;
+    background: #067e2e;
     padding: 20px;
     border-radius: 12px;
+    margin: 30px;
 }
 
 /* FullCalendar overrides */
 .fc {
-    background: #1a1a1a;
+    background: #ffb649;
     color: white;
 }
 
@@ -247,17 +250,25 @@ footer{
 }
 
 .fc-event {
-    background-color: #2d8cff;
+    background-color: #067e2e;
     border: none;
     padding: 2px 4px;
     font-size: 12px;
 }
 
+.dash_img{
+  width: 100%;
+  height: auto;
+  border-radius: 14px;
+  margin: 30px
+}
+
+
 /* ===== DROPDOWN ===== */
 .dropdown-content {
     display: none;
     position: absolute;
-    background-color: #1a1a1a;
+    background-color: #067e2e;
     padding: 10px;
     border-radius: 8px;
 }

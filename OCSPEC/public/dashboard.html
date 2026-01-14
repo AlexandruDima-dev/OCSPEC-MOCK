@@ -1,147 +1,131 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard</title>
-    <link rel="stylesheet" href="style.css">
-        <link
-    href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.css"
-    rel="stylesheet"
-    />
-    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.js"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard</title>
+  <link rel="stylesheet" href="style.css">
+  <link href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.css" rel="stylesheet" />
+  <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.js"></script>
 </head>
 <body>
 
-<div class="navigation">
+  <!-- NAVBAR -->
+  <div class="navigation">
     <p>Riget Zoo Adventure</p>
 
     <ul>
-        <li>
-            <div class="dropdown">
-                <button onclick="toggleDropdown()" class="dropbtn">
-                    <img src="/OCSPEC/public/Images/profile pic.png" alt="Profile">
-                </button>
-
-                <div id="dropdown" class="dropdown-content">
-                    <a href="#">Setting</a><br>
-                    <a href="#">Your Bookings</a><br>
-                    <a href="#">Logout</a>
-                </div>
-            </div>
-        </li>
-
-        <li><a>Educational Visits</a></li>
-        <li><a>Bookings</a></li>
+      <li><a href="#">Educational Visits</a></li>
+      <li><a href="#">Bookings</a></li>
+      <li>
+        <div class="dropdown">
+          <button onclick="toggleDropdown()" class="dropbtn">
+            <img src="/OCSPEC/public/Images/profile pic.png" alt="Profile">
+          </button>
+          <div id="dropdown" class="dropdown-content">
+            <a href="#">Settings</a>
+            <a href="#">Your Bookings</a>
+            <a href="#">Logout</a>
+          </div>
+        </div>
+      </li>
     </ul>
-</div>
+  </div>
 
-<div class="container-dashboard">
+  <!-- MAIN DASHBOARD GRID -->
+  <div class="dashboard-grid">
 
-    <div id="table" class="table-class">
-        <table>
-            <tr>
-                <th>Monday</th>
-                <th>Tuesday</th>
-                <th>Wednesday</th>
-                <th>Thursday</th>
-                <th>Friday</th>
-                <th>Saturday</th>
-                <th>Sunday</th>
-            </tr>
-
-            <tr>
-                <td>9:00 - 6:00</td>
-                <td>9:00 - 6:00</td>
-                <td>9:00 - 6:00</td>
-                <td>9:00 - 6:00</td>
-                <td>9:00 - 6:00</td>
-                <td>9:00 - 3:00</td>
-                <td>Closed</td>
-            </tr>
-        </table>
+    <!-- Opening Hours -->
+    <div class="card table-class">
+      <h2>Opening Hours</h2>
+      <table>
+        <tr>
+          <th>Monday</th>
+          <th>Tuesday</th>
+          <th>Wednesday</th>
+          <th>Thursday</th>
+          <th>Friday</th>
+          <th>Saturday</th>
+          <th>Sunday</th>
+        </tr>
+        <tr>
+          <td>9:00 - 6:00</td>
+          <td>9:00 - 6:00</td>
+          <td>9:00 - 6:00</td>
+          <td>9:00 - 6:00</td>
+          <td>9:00 - 6:00</td>
+          <td>9:00 - 3:00</td>
+          <td>Closed</td>
+        </tr>
+      </table>
     </div>
 
-
-
-    <div class="location">
-        <h2>Location And Contact</h2>
-        <p>Address - 21 Newcastle Road</p>
-        <p>Postcode - NE45 9DX</p>
-        <p>Email - Ridgetzooadvanture@gmail.com</p>
-        <p>Phone - 07865 233767</p>
-
-        <br>
-        <p>We Wish You a Safe Trip To Our Zoo!</p>
+    <!-- Location -->
+    <div class="card location">
+      <h2>Location & Contact</h2>
+      <p>Address: 21 Newcastle Road</p>
+      <p>Postcode: NE45 9DX</p>
+      <p>Email: Ridgetzooadventure@gmail.com</p>
+      <p>Phone: 07865 233767</p>
+      <p>We wish you a safe trip to our zoo!</p>
     </div>
 
-    <div class="events" id="calendar"></div>
+    <!-- Events -->
+    <div class="card events-container">
+      <h2>Upcoming Events</h2>
+      <div class="events" id="calendar"></div>
+    </div>
 
+    <!-- Dashboard Image -->
+    <div class="card dash_img_container">
+      <img class="dash_img" src="/OCSPEC/public/Images/dash_img.jpg" alt="Zoo Image">
+    </div>
 
+  </div>
 
-</div>
-
-
-
-
-<!-- SCRIPT FOR ACCOUNT DROPDOWN -->
-<script>
-function toggleDropdown() {
-    document.getElementById("dropdown").classList.toggle("show");
-}
-
-window.onclick = function (event) {
-    if (!event.target.closest(".dropbtn")) {
-        document.getElementById("dropdown").classList.remove("show");
+  <!-- SCRIPT FOR ACCOUNT DROPDOWN -->
+  <script>
+    function toggleDropdown() {
+      document.getElementById("dropdown").classList.toggle("show");
     }
-};
 
-</script>
+    window.onclick = function(event) {
+      if (!event.target.closest(".dropbtn")) {
+        document.getElementById("dropdown").classList.remove("show");
+      }
+    };
+  </script>
 
-<!-- Calnedar Script -->
-<script>
-document.addEventListener("DOMContentLoaded", function () {
+  <!-- FullCalendar Script -->
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      fetch('./data/events.json')
+        .then(res => res.json())
+        .then(data => {
+          const now = new Date();
+          const currentMonth = now.getMonth();
+          const currentYear = now.getFullYear();
 
-  fetch('./data/events.json')
-    .then(res => res.json())
-    .then(data => {
+          const events = data
+            .filter(event => {
+              const eventDate = new Date(event.date);
+              return eventDate.getMonth() === currentMonth && eventDate.getFullYear() === currentYear;
+            })
+            .map(event => {
+              const startTime = event.time.split(" - ")[0];
+              return { title: event.title, start: `${event.date}T${startTime}` };
+            });
 
-      const now = new Date();
-      const currentMonth = now.getMonth();
-      const currentYear = now.getFullYear();
-
-      const events = data
-        .filter(event => {
-          const eventDate = new Date(event.date);
-          return (
-            eventDate.getMonth() === currentMonth &&
-            eventDate.getFullYear() === currentYear
+          const calendar = new FullCalendar.Calendar(
+            document.getElementById('calendar'),
+            { initialView: 'dayGridMonth', height: 'auto', events: events }
           );
-        })
-        .map(event => {
-          const startTime = event.time.split(" - ")[0];
 
-          return {
-            title: event.title,
-            start: `${event.date}T${startTime}`
-          };
+          calendar.render();
         });
-
-      const calendar = new FullCalendar.Calendar(
-        document.getElementById('calendar'),
-        {
-          initialView: 'dayGridMonth',
-          height: 'auto',
-          events: events
-        }
-      );
-
-      calendar.render();
     });
-
-});
-</script>
-
+  </script>
 
 </body>
 </html>
+
