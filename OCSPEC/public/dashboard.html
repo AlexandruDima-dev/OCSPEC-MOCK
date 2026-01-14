@@ -5,6 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard</title>
     <link rel="stylesheet" href="style.css">
+        <link
+    href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.css"
+    rel="stylesheet"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.js"></script>
 </head>
 <body>
 
@@ -15,7 +20,7 @@
         <li>
             <div class="dropdown">
                 <button onclick="toggleDropdown()" class="dropbtn">
-                    <img src="/public/Images/profile pic.png" alt="Profile">
+                    <img src="/OCSPEC/public/Images/profile pic.png" alt="Profile">
                 </button>
 
                 <div id="dropdown" class="dropdown-content">
@@ -31,8 +36,49 @@
     </ul>
 </div>
 
-<div class="container" id="time">
-    
+<div class="container-dashboard">
+
+    <div id="table" class="table-class">
+        <table>
+            <tr>
+                <th>Monday</th>
+                <th>Tuesday</th>
+                <th>Wednesday</th>
+                <th>Thursday</th>
+                <th>Friday</th>
+                <th>Saturday</th>
+                <th>Sunday</th>
+            </tr>
+
+            <tr>
+                <td>9:00 - 6:00</td>
+                <td>9:00 - 6:00</td>
+                <td>9:00 - 6:00</td>
+                <td>9:00 - 6:00</td>
+                <td>9:00 - 6:00</td>
+                <td>9:00 - 3:00</td>
+                <td>Closed</td>
+            </tr>
+        </table>
+    </div>
+
+
+
+    <div class="location">
+        <h2>Location And Contact</h2>
+        <p>Address - 21 Newcastle Road</p>
+        <p>Postcode - NE45 9DX</p>
+        <p>Email - Ridgetzooadvanture@gmail.com</p>
+        <p>Phone - 07865 233767</p>
+
+        <br>
+        <p>We Wish You a Safe Trip To Our Zoo!</p>
+    </div>
+
+    <div class="events" id="calendar"></div>
+
+
+
 </div>
 
 
@@ -49,7 +95,53 @@ window.onclick = function (event) {
         document.getElementById("dropdown").classList.remove("show");
     }
 };
+
 </script>
+
+<!-- Calnedar Script -->
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+
+  fetch('./data/events.json')
+    .then(res => res.json())
+    .then(data => {
+
+      const now = new Date();
+      const currentMonth = now.getMonth();
+      const currentYear = now.getFullYear();
+
+      const events = data
+        .filter(event => {
+          const eventDate = new Date(event.date);
+          return (
+            eventDate.getMonth() === currentMonth &&
+            eventDate.getFullYear() === currentYear
+          );
+        })
+        .map(event => {
+          const startTime = event.time.split(" - ")[0];
+
+          return {
+            title: event.title,
+            start: `${event.date}T${startTime}`
+          };
+        });
+
+      const calendar = new FullCalendar.Calendar(
+        document.getElementById('calendar'),
+        {
+          initialView: 'dayGridMonth',
+          height: 'auto',
+          events: events
+        }
+      );
+
+      calendar.render();
+    });
+
+});
+</script>
+
 
 </body>
 </html>

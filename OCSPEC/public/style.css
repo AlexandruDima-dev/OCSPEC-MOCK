@@ -198,3 +198,70 @@ footer{
     padding: 60px;
     color: aliceblue;
 }
+
+
+/* Dashboard Elements */
+
+.table-class{
+  background-color: #067e2e;
+  color: #ddd;
+  padding: 20px;
+  border-radius: 14px;
+}
+
+.table-class table, th, td{
+  border: 1px solid #ddd;
+  border-collapse: collapse;
+  padding: 10px;
+
+}
+
+.location{
+  background-color: #ffb649;
+  color: antiquewhite;
+  padding: 20px;
+  border-radius: 14px;
+}
+
+
+/* ===== EVENTS / CALENDAR ===== */
+.events {
+    grid-column: span 2;
+    background: #1a1a1a;
+    padding: 20px;
+    border-radius: 12px;
+}
+
+/* FullCalendar overrides */
+.fc {
+    background: #1a1a1a;
+    color: white;
+}
+
+.fc-toolbar-title {
+    color: white;
+}
+
+.fc-daygrid-day-number {
+    color: white;
+}
+
+.fc-event {
+    background-color: #2d8cff;
+    border: none;
+    padding: 2px 4px;
+    font-size: 12px;
+}
+
+/* ===== DROPDOWN ===== */
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #1a1a1a;
+    padding: 10px;
+    border-radius: 8px;
+}
+
+.dropdown-content.show {
+    display: block;
+}
