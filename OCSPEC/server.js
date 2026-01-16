@@ -53,13 +53,17 @@ app.post("/dashboard", (req,res)=>{
     try{
         const { firstName, lastName, email, password} = req.body
         res.status(200)
-        res.send(path.join(__dirname, "public", "dashboard.html"))
-        db.prepare("INSERT INTO users (firstName , lastName, email, password) VALUES (?,?,?,?)").run()
+        db.prepare("INSERT INTO users (firstName , lastName, email, password) VALUES (?,?,?,?)").run(firstName, lastName, email, password)
         console.log(`First name: ${firstName}, Last name: ${lastName}, email:${email}, password: ${password}`)
+        res.redirect("/dashboard")
     } catch (err){
         console.log(`Error has been found ${err}`)
-        res.status(500)
+        res.status(500).send("There Has been a Server error ")
     }
+})
+
+app.get("/dashboard" , (req,res)=>{
+    res.sendFile(path.join(__dirname, "public", "dashboard.html"))
 })
 
 
