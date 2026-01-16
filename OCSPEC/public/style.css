@@ -201,6 +201,20 @@ footer{
 
 
 /* Dashboard Elements */
+/* ===================================================== */
+
+img{
+  width: 100%;
+  height: auto;
+  margin: 0;
+}
+
+.banner{
+  width: 100%;
+  height: auto;
+  border-radius: 14px;
+  margin: 30px;
+}
 
 .table-class{
   background-color: #067e2e;
@@ -276,3 +290,17 @@ footer{
 .dropdown-content.show {
     display: block;
 }
+
+
+/* EDUCATIONAL VISITS */
+
+.banner-class img{
+  height: auto;
+  width: 100%;
+  border-radius: 14px;
+  margin: 30px;
+}
+
+
+
+

@@ -2,6 +2,7 @@ const express = require("express")
 const erl = require("express-rate-limit")
 const app = express()
 const Database = require("better-sqlite3")
+const path = require("path")
 const PORT = 8000
 
 //Advanced Middleware
@@ -51,7 +52,8 @@ db.prepare(`
 app.post("/dashboard", (req,res)=>{
     try{
         const { firstName, lastName, email, password} = req.body
-        res.status(200).send("Dashboard Data Recived")
+        res.status(200)
+        res.send(path.join(__dirname, "public", "dashboard.html"))
         db.prepare("INSERT INTO users (firstName , lastName, email, password) VALUES (?,?,?,?)").run()
         console.log(`First name: ${firstName}, Last name: ${lastName}, email:${email}, password: ${password}`)
     } catch (err){

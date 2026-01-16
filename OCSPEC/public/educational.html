@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> Educational Visits | Riget Zoo</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    
+    <div class="navigation">
+        <p>Riget Zoo Adventure</p>
+
+        <ul>
+        <li><a href="#">Dashboard</a></li>
+        <li><a href="#">Bookings</a></li>
+        <li>
+            <div class="dropdown">
+            <button onclick="toggleDropdown()" class="dropbtn">
+                <img src="/OCSPEC/public/Images/profile pic.png" alt="Profile">
+            </button>
+            <div id="dropdown" class="dropdown-content">
+                <a href="#">Settings</a>
+                <a href="#">Your Bookings</a>
+                <a href="#">Logout</a>
+            </div>
+            </div>
+        </li>
+        </ul>
+  </div>
+
+  <!-- Banner -->
+   <div id="banner" class="banner-class">
+    <h2>Educational</h2>
+    <img src="/OCSPEC/public/Images/VIER PFOTEN_2017-10-20_164-3672x2448-3672x2448-1920x1280.jpg">
+   </div>
+
+   <!-- Book Your Intrest -->
+    <form>
+        <h2>Register your Intrest</h2>
+        <label>Organsation Name</label>
+        <input type="text"><br>
+        <label>Date</label>
+        <input type="date"><br>
+        <label>Email</label>
+        <input type="email">
+        <br>
+        <button id=""></button>
+
+    </form>
+    <!-- About -->
+     <div class="Educational">
+        <h2>About Educational Visits</h2>
+        <br>
+        <p>We at Ridget Zoo offer education visits for schools and universty,
+            We offer services like a zoo tour and trivia quizes for children in primary schools
+            and secondary schools, and we also offer high level education classes and sessions
+            for higher education  students. This includes a close visual of animals and their biology
+
+        </p>
+     </div>
+
+    <!-- Footer -->
+    <footer>
+        <h2>Riget Zoo</h2>
+        <p> Rights reserved 2026</p>
+    </footer>
+
+
+  <!-- JAVA SCRIPT -->
+
+    <script>
+        function toggleDropdown() {
+        document.getElementById("dropdown").classList.toggle("show");
+        }
+
+        window.onclick = function(event) {
+        if (!event.target.closest(".dropbtn")) {
+            document.getElementById("dropdown").classList.remove("show");
+        }
+        };
+  </script>
+
+    
+</body>
+</html>
