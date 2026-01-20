@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <style>
+        h2{
+            text-align: center;
+            margin: 20px;
+        }
+
+        p{
+            text-align: center;
+        }
+
+        .info{
+            background-color: #067e2e ;
+        }
+    </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Booking Complete!  || Riget Zoo Adventures</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="navigation">
+        <p>Riget Zoo Adventure</p>
+        <ul>
+        </ul>
+    </div>
+
+    <h2>Booking Complete!</h2>
+    <p>We cant wait to see you!</p>
+    <p> There Has been an Email Sent With all of your infomation</p>
+
+    <div id="booking" class="info">
+    </div>
+
+    <script>
+        fetch("/Educational-Visits")
+        .then(res => res.json())
+        .then(data => {
+        document.getElementById("booking").innerHTML = `
+        <p>Name: ${data.name}</p>
+        <p>Email: ${data.email}</p>
+        <p>Date: ${data.date}</p>
+    `;
+  });
+</script>
+
+    
+</body>
+</html>

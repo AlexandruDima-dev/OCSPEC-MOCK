@@ -49,6 +49,17 @@ db.prepare(`
     `).run()
     console.log("Database is Ready")
 
+    db.prepare(`
+    CREATE TABLE educational_visits(
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    user_id INTEGER NOT NULL,
+    email TEXT UNIQUE NOT NULL,
+    school TEXT NOT NULL,
+    visit_date TEXT,
+    token TEXT UNIQUE,
+    FOREIGN KEY (user_id) REFERENCES users(id)
+    )`).run()
+
 
 
 //REGISTER
@@ -76,38 +87,60 @@ app.get("/signin", (req,res)=>{
 
 
 app.post("/signin", (req,res)=>{
-    const {email, password} = req.body;
-    if(!email || !password){
+    const {emailInput, passwordInput} = req.body;
+    if(!emailInput || !passwordInput){
         res.status(400).json({
             message:"Your Infomation hasnt been found"
         });
     };
     const user = db.prepare(
         "SELECT * FROM users WHERE email = ? AND password= ?"
-    ).get(email,password)
-    res.redirect("/dashboard")
+    ).get(emailInput,passwordInput)
+
+    if(user){
+        res.redirect("/dashboard")
+    }else{
+        res.status(400).json({
+            message: "email or password is invalid"
+        });
+    };
+
+});
+
+//Booking
+
+app.get("/Booking", (req,res)=>{
+    res.sendFile(path.join(__dirname, "public", "booking_complete.html"))
 })
 
-// Educational Vist's
-app.post("/Educational-Visits", (req,res)=>{
-    db.prepare(`
-        CREATE TABLE educational_visits(
-        id INTEGER PRIMARY KEY AUTOINCREMENT,
-        user_id INTEGER NOT NULL,
-        email TEXT UNIQUE NOT NULL,
-        school TEXT NOT NULL,
-        visit_date TEXT,
-        FOREIGN KEY (user_id) REFERENCES users.(id)
-        )`)
+//Educational Visits
+
+app.get("/Educational-Visits", (req,res)=>{
+    res.sendFile(path.join(__dirname, "public", "educational.html"))
+})
+
+app.post("/Educational-Visits/:id", async (req,res)=>{
+
 
         const {email , school, visit_date} = req.body;
         if(!email || !school || !visit_date){
-            res.status(401).json({
+            return res.status(401).json({
                 message:"Data Hasnt been found"
             });
         };
 
-        const qr = await qrcode.toBuffer("") //<-------------- Makes QR code
+        const token = crypto.randomUUID(); //<--- Generates Random Token
+
+
+        try{
+            db.prepare("INSERT INTO educational_visits (email, school, visit_date, token, user_id) VALUES (?,?,?,?,?)").run(email, school, visit_date, token, user_id)
+        } catch(err){
+            return res.status(500).json({
+                message:"There Has Been a server error"
+            })
+        }
+
+        const qr = await qrcode.toBuffer(`http://localhost:8000/Booking/${token}`) //<-------------- Makes QR code
 
         const transporter = nodemailer.createTransport({
             service: 'gmail',
@@ -120,13 +153,13 @@ app.post("/Educational-Visits", (req,res)=>{
             subject: "Your Educational Visit Has Been Booked!",
             text:"Thank You for our booking, if your organisation dosent arrive within an hour then booking will be cancled.",
             attachments:[{
-                filename:"qrcode.png",
+                filename:"Your_QR_Code.png",
                 content:qr
             }]
-        })
+        });
 
 
-})
+});
 
 
 
