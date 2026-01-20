@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign In || Riget Zoo Adventures</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="signin-body">
+        <div class="navigation">
+        <p>Riget Zoo Adventure</p>
+        <ul>
+
+        </ul>
+    </div>
+
+    
+
+    <form id="signin" class="signin" method="post" action="/signin">  
+        <h2>Sign In</h2>
+        <label>Email</label><br>
+        <input type="email" name="email" placeholder="e.g example@gmail.com" required><br><br>
+        <label>Password</label><br>
+        <input type="password" name="password" required><br><br>
+        <button id="Submit">Submit</button>
+        <p id="messages"></p>
+
+    </form>
+
+    <footer class="footer-signin">
+        <h2>Riget Zoo</h2>
+        <p> Rights reserved 2026</p>
+    </footer>
+
+
+    
+</body>
+
+        <script>
+        function toggleDropdown() {
+        document.getElementById("dropdown").classList.toggle("show");
+        }
+
+        window.onclick = function(event) {
+        if (!event.target.closest(".dropbtn")) {
+            document.getElementById("dropdown").classList.remove("show");
+        }
+        };
+  </script>
+</html>

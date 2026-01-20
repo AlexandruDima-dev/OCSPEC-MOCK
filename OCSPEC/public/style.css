@@ -208,11 +208,25 @@ img{
   margin: 0;
 }
 
-.banner img{
+.con img{
+  display: block;
   width: 100%;
   height: auto;
-  border-radius: 14px;
-  margin: 30px;
+}
+.con{
+  position: relative;
+}
+
+.con .title{
+  position:absolute;
+  top: 50%;
+  left:50%;
+  transform: translate(-50%, -50%); /* true center */
+  
+  color: white;
+  font-size: 100px;
+  font-weight: bold;
+
 }
 
 .table-class{
@@ -315,7 +329,14 @@ img{
 }
 
 .book-class{
-  display: grid;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+
+
+
   color: #ddd;
   background-color: #067e2e;
   text-align: center;
@@ -327,7 +348,91 @@ img{
 }
 
 .book-class input{
+
+
+  min-width: 50px;
+  max-width: 200px;
+  border-radius: 4px;
+  outline: #067e2e;
+  border: none;
+
+  max-height: 25px;
+  min-height: 20px;
+}
+
+.book-class button{
+  background-color: #ffb649;
+  color: #ddd;
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  font-weight: bolder;
+  border-radius: 10px;
+
+  padding: 5px;
+  max-width: 150px;
+  min-width: 100px;
+
+  outline: none;
+  border: none;
+
+  transition: all 0.3s ease;
+}
+
+.book-class button:hover{
+  background-color: #ca8319;
+  transform: translateY(-5px);
+}
+
+.Educational{
+  background-color: #ffb649;
+  padding: 20px;
+  color: #ddd;
+}
+
+/* Sign In  */
+
+.signin-body{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+}
+
+.signin{
+  align-self: center;
+  background: #067e2e;
+  padding: 30px;
+  max-width: 100px;
+  min-width: 500px;
+  margin: 30px;
+  color: #ddd;
   border-radius: 14px;
+  text-align: center;
+}
+
+.signin input{
+  border-radius: 4px;
+  border: none;
+
+  max-width: 200px;
+  min-width: 100px;
+
+
+}
+
+.signin button{
+  background-color: #ffb649;
+  padding: 5px;
+  border-radius: 5px;
+  border: none;
+  color: #ffffff;
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+
+  transition: all 0.3s ease;
+}
+
+.signin button:hover{
+  background-color: #ca8319;
+  transform:translateY(-5px);
 }
 
 

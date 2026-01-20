@@ -3,6 +3,8 @@
     "better-sqlite3": "^12.6.0",
     "express": "^5.2.1",
     "express-rate-limit": "^8.2.1",
+    "nodemailer": "^7.0.12",
+    "qrcode": "^1.5.4",
     "sqlite": "^5.1.1"
   }
 }

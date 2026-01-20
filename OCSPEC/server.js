@@ -3,6 +3,8 @@ const erl = require("express-rate-limit")
 const app = express()
 const Database = require("better-sqlite3")
 const path = require("path")
+const qrcode = require("qrcode")
+const nodemailer = require("nodemailer")
 const PORT = 8000
 
 //Advanced Middleware
@@ -25,6 +27,7 @@ const logger = (req, res, next)=>{
 
 //Middlewear
 app.use(express.urlencoded({extended:true}));
+app.use(express.json())
 app.use(express.static("public"));
 app.use(logger);
 app.use(limiter);
@@ -48,7 +51,7 @@ db.prepare(`
 
 
 
-//POST REQUEST
+//REGISTER
 app.post("/dashboard", (req,res)=>{
     try{
         const { firstName, lastName, email, password} = req.body
@@ -65,6 +68,66 @@ app.post("/dashboard", (req,res)=>{
 app.get("/dashboard" , (req,res)=>{
     res.sendFile(path.join(__dirname, "public", "dashboard.html"))
 })
+
+// SIGN IN
+app.get("/signin", (req,res)=>{
+    res.sendFile(path.join(__dirname, "public", "signin.html"))
+})
+
+
+app.post("/signin", (req,res)=>{
+    const {email, password} = req.body;
+    if(!email || !password){
+        res.status(400).json({
+            message:"Your Infomation hasnt been found"
+        });
+    };
+    const user = db.prepare(
+        "SELECT * FROM users WHERE email = ? AND password= ?"
+    ).get(email,password)
+    res.redirect("/dashboard")
+})
+
+// Educational Vist's
+app.post("/Educational-Visits", (req,res)=>{
+    db.prepare(`
+        CREATE TABLE educational_visits(
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        user_id INTEGER NOT NULL,
+        email TEXT UNIQUE NOT NULL,
+        school TEXT NOT NULL,
+        visit_date TEXT,
+        FOREIGN KEY (user_id) REFERENCES users.(id)
+        )`)
+
+        const {email , school, visit_date} = req.body;
+        if(!email || !school || !visit_date){
+            res.status(401).json({
+                message:"Data Hasnt been found"
+            });
+        };
+
+        const qr = await qrcode.toBuffer("") //<-------------- Makes QR code
+
+        const transporter = nodemailer.createTransport({
+            service: 'gmail',
+            auth:{user: "alexandrucoding08@gmail.com", pass:"mknr sjyw oqcz cugv"}
+        });
+
+        await transporter.sendMail({
+            from: "alexandrucoding08@gmail.com",
+            to: email,
+            subject: "Your Educational Visit Has Been Booked!",
+            text:"Thank You for our booking, if your organisation dosent arrive within an hour then booking will be cancled.",
+            attachments:[{
+                filename:"qrcode.png",
+                content:qr
+            }]
+        })
+
+
+})
+
 
 
 //Start the server

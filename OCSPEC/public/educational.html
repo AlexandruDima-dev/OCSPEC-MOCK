@@ -37,16 +37,17 @@
    </div>
 
    <!-- Book Your Intrest -->
-    <form class="book-class">
+    <form class="book-class" method="post" action="/Educational-Visits">
         <h2>Register your Intrest</h2><br>
         <label>Organsation Name</label><br>
-        <input type="text" placeholder="Name of school or universty"><br>
+        <input type="text" placeholder="Name of school or universty" name="school"><br>
         <label>Email</label><br>
-        <input type="email" required placeholder="eg. example@gmail.com"><br>
+        <input type="email" required placeholder="eg. example@gmail.com" name="email"><br>
         <label>Time of arival</label><br>
-        <input type="datetime-local">
+        <input type="datetime-local" name="visit_date">
         <br>
-        <button id="messages"></button>
+        <button id="Submit">Submit</button>
+        <p id="messages"></p>
 
     </form>
     <!-- About -->
