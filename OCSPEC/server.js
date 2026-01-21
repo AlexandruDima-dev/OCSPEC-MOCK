@@ -49,16 +49,16 @@ db.prepare(`
     `).run()
     console.log("Database is Ready")
 
-    db.prepare(`
-    CREATE TABLE educational_visits(
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    user_id INTEGER NOT NULL,
-    email TEXT UNIQUE NOT NULL,
-    school TEXT NOT NULL,
-    visit_date TEXT,
-    token TEXT UNIQUE,
-    FOREIGN KEY (user_id) REFERENCES users(id)
-    )`).run()
+    // db.prepare(`
+    // CREATE TABLE educational_visits(
+    // id INTEGER PRIMARY KEY AUTOINCREMENT,
+    // user_id INTEGER NOT NULL,
+    // email TEXT UNIQUE NOT NULL,
+    // school TEXT NOT NULL,
+    // visit_date TEXT,
+    // token TEXT UNIQUE,
+    // FOREIGN KEY (user_id) REFERENCES users(id)
+    // )`).run()
 
 
 
