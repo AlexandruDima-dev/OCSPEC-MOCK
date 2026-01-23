@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Hotel Bookings</title>
+</head>
+<body class="hotel-body">
+
+    <div class="navigation">
+        <p>Riget Zoo Adventure</p>
+
+        <ul>
+        <li><a href="#">Dashboard</a></li>
+        <li><a href="#">Bookings</a></li>
+        <li>
+            <div class="dropdown">
+            <button onclick="toggleDropdown()" class="dropbtn">
+                <img src="/Images/profile pic.png" alt="Profile">
+            </button>
+            <div id="dropdown" class="dropdown-content">
+                <a href="#">Settings</a>
+                <a href="#">Your Bookings</a>
+                <a href="#">Logout</a>
+            </div>
+            </div>
+        </li>
+        </ul>
+  </div>
+
+
+  <div id="hero" class="hero-class">
+    <h2>Hotel Bookings</h2>
+    <img src="/public/Images/Hotels.jpg">
+  </div>
+
+      <form action="/Hotel" method="post" class="Hotel-Booking-class">
+        <h2> Book Your Hotel</h2>
+        <br>
+        <label>Email</label><br>
+        <input name="email" required placeholder="example@gmail.com">
+        <br>
+        <label>Amount of people</label><br>
+        <input name="people" required placeholder="e.g 6 people"><br>
+        <label>Start of stay</label><br>
+        <input type="datetime" required name="startdate"><br>
+        <label>End of stay</label><br>
+        <input type="datetime" required name="enddate">
+        <p id="messages"></p>
+        <br>
+        <div class="butcon"><button id="class">Submit</button></div>
+
+    </form>
+
+  <div class="fac-class" id="fac">
+    <h3>Our Hotels</h2>
+
+    <div class="card-one">
+        <h2>Safari Lodges</h2>
+        <br>
+        <img src="/public/Images/hotel-one.jpeg">
+
+        <p>Tucked away in a serene natural landscape, Giffrae Lodges offers an intimate escape where luxury meets complete tranquillity. Designed for guests who value privacy, comfort, and refined simplicity, each lodge blends contemporary elegance with the warmth of a secluded hideaway.
+            Spacious interiors, floor‑to‑ceiling windows, and thoughtfully curated furnishings create a calming atmosphere that invites you to slow down and unwind. Step onto your private terrace to enjoy sweeping views, soak in a premium outdoor hot tub, or savour a quiet morning coffee surrounded by nature.
+            Whether you’re seeking a romantic getaway, a restorative solo retreat, or a peaceful base for exploring the countryside, Giffrae Lodges delivers an experience defined by comfort, sophistication, and effortless relaxation. With personalised touches, high‑end amenities, and a setting that feels worlds away, it’s a place where every moment feels indulgent.
+
+            If you want, I can tailor this further — more romantic, more adventurous, more family‑friendly, or more high‑end.
+        </p>
+    </div>
+
+
+    <div class="card-two">
+        <h2>Tropical Room</h2>
+
+        <img src="/public/Images/Trop.avif">
+
+        <p>
+            Step into the Tropical Escape Room, where vibrant island energy meets refined comfort. Designed to feel like a private sanctuary tucked beneath palm leaves, this room surrounds you with warm textures, lush greenery, and sun‑kissed colours inspired by the world’s most beautiful coastlines.
+            Natural wood accents, soft ambient lighting, and botanical décor create a soothing atmosphere that instantly transports you to a far‑off paradise. A spacious king bed dressed in crisp linens invites deep rest, while the gentle scent of tropical florals drifts through the air. Large windows or a private balcony open to views that echo the serenity of a beachside hideaway.
+        </p>
+    </div>
+
+
+  </div>
+
+  <footer>
+        <h2>Riget Zoo</h2>
+        <p> Rights reserved 2026</p>
+
+  </footer>
+
+    
+</body>
+</html>

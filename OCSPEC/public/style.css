@@ -196,6 +196,7 @@ footer{
     background-color: #fac77a;
     padding: 60px;
     color: aliceblue;
+    height: auto;
 }
 
 
@@ -434,6 +435,87 @@ img{
   background-color: #ca8319;
   transform:translateY(-5px);
 }
+
+/* Hotel Dashboard */
+
+.hotel-body{
+  display: flex;
+  flex-direction: column;
+
+}
+
+.hero-class{
+  position: relative;
+  width: 100%;
+  border-bottom:solid 30px #ca8319;
+  border-top:solid 30px #ca8319;
+
+}
+
+.hero-class img{
+  width: 100%;
+  display: block;
+}
+
+.hero-class h2{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+
+  color: white;                 
+  -webkit-text-stroke: 2px rgb(200, 146, 21); 
+  font-size: 48px;
+  font-weight: bold;
+}
+
+
+/* REG */
+
+.Hotel-Booking-class{
+  background-color: #067e2e;
+  color: #ddd;
+  padding: 20px;
+  border-radius: 14px;
+  margin: 40px;
+
+  display: flex;
+  flex-direction: column;
+  align-self: center;
+  max-width: 800px;
+  min-width: 400px;
+}
+
+.Hotel-Booking-class input{
+  max-width: 300px;
+  min-width: 150px;
+
+  border-radius: 14px;
+  border: none;
+}
+
+.butcon{
+  display: flex;
+  justify-content: center;
+}
+
+.butcon button{
+  display: flex;
+  flex-direction: column;
+  background-color: #ca8319;
+  border: none;
+  color: #ddd;
+  padding: 5px;
+  max-width: 100px;
+  min-width: 50px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+
+}
+
+
 
 
 

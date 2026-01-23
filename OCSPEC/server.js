@@ -49,16 +49,16 @@ db.prepare(`
     `).run()
     console.log("Database is Ready")
 
-    // db.prepare(`
-    // CREATE TABLE educational_visits(
-    // id INTEGER PRIMARY KEY AUTOINCREMENT,
-    // user_id INTEGER NOT NULL,
-    // email TEXT UNIQUE NOT NULL,
-    // school TEXT NOT NULL,
-    // visit_date TEXT,
-    // token TEXT UNIQUE,
-    // FOREIGN KEY (user_id) REFERENCES users(id)
-    // )`).run()
+    db.prepare(`
+    CREATE TABLE IF NOT EXISTS educational_visits(
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    user_id INTEGER NOT NULL,
+    email TEXT UNIQUE NOT NULL,
+    school TEXT NOT NULL,
+    visit_date TEXT,
+    token TEXT UNIQUE,
+    FOREIGN KEY (user_id) REFERENCES users(id)
+    )`).run()
 
 
 
@@ -66,7 +66,6 @@ db.prepare(`
 app.post("/dashboard", (req,res)=>{
     try{
         const { firstName, lastName, email, password} = req.body
-        res.status(200)
         db.prepare("INSERT INTO users (firstName , lastName, email, password) VALUES (?,?,?,?)").run(firstName, lastName, email, password)
         console.log(`First name: ${firstName}, Last name: ${lastName}, email:${email}, password: ${password}`)
         res.redirect("/dashboard")
@@ -119,7 +118,7 @@ app.get("/Educational-Visits", (req,res)=>{
     res.sendFile(path.join(__dirname, "public", "educational.html"))
 })
 
-app.post("/Educational-Visits/:id", async (req,res)=>{
+app.post("/Educational-Visits", async (req,res)=>{
 
 
         const {email , school, visit_date} = req.body;
@@ -133,7 +132,17 @@ app.post("/Educational-Visits/:id", async (req,res)=>{
 
 
         try{
-            db.prepare("INSERT INTO educational_visits (email, school, visit_date, token, user_id) VALUES (?,?,?,?,?)").run(email, school, visit_date, token, user_id)
+            const user = db.prepare("SELECT id FROM users WHERE email = ?").get(email)
+            if(!user){
+                res.status(400).json({
+                    message:"Coudnt get user"
+                })
+            }
+
+            const user_id = user.id;
+
+
+            db.prepare("INSERT INTO educational_visits (email, school, visit_date, token, user_id) VALUES (?,?,?,?,?)").run(email, school, visit_date, token,user_id)
         } catch(err){
             return res.status(500).json({
                 message:"There Has Been a server error"
@@ -158,8 +167,12 @@ app.post("/Educational-Visits/:id", async (req,res)=>{
             }]
         });
 
+        return res.status(200).redirect("/Booking")
+
 
 });
+
+
 
 
 
