@@ -487,6 +487,11 @@ img{
   min-width: 400px;
 }
 
+.Hotel-Booking-class select{
+  max-width: 300px;
+  border-radius: 14px;
+}
+
 .Hotel-Booking-class input{
   max-width: 300px;
   min-width: 150px;

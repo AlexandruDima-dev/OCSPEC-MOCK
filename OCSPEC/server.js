@@ -64,8 +64,9 @@ db.prepare(`
         CREATE TABLE IF NOT EXISTS hotel_bookings(
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         user_id INTEGER NOT NULL,
-        email TEXT UNIQUE NOT NULL,
-        school TEXT NOT NULL,
+        email TEXT  NOT NULL,
+        Hotel TEXT NOT NULL,
+        people INTEGER NOT NULL,
         startdate TEXT,
         enddate TEXT,
         token TEXT UNIQUE,
@@ -195,31 +196,24 @@ app.get("/Hotel", (req,res)=>{
 app.post("/Hotel", async (req,res)=>{
     const {email, Hotel, people, startdate, enddate} = req.body;
     if(!email || !Hotel || !people || !startdate || !enddate){
-        res.status(401).json({message: "We couldnt find your  infomation"})
+        return res.status(401).json({message: "We couldnt find your  infomation"})
     };
 
     const token = crypto.randomUUID();
 
-    try{
-    const user = db.prepare("SELECT id FROM users WHERE email = ?").get(email)
+try{
+    const user = db.prepare("SELECT id FROM users  WHERE email = ?").get(email)
     if(!user){
-        res.status(400).json({
-            message:"Coudnt get user"
-        })
-    }
-
-    const user_id = user.id;
-
-
-    db.prepare("INSERT INTO hotel_bookings (email, Hotel, people, startdate, enddate, user_id, token) VALUES (?,?,?,?,?)").run(email, Hotel, people, startdate, enddate, user_id,token )
-} catch(err){
-    return res.status(500).json({
-        message:"There Has Been a server error"
-    });
-};
+        return res.status(400).json({message:"Couldnt Get User"})
+    };
+    const user_id = user.id
+    db.prepare("INSERT INTO hotel_bookings (email, Hotel, people, startdate, enddate, user_id, token) VALUES (?,?,?,?,?,?,?)").run(email, Hotel,people, startdate, enddate, user_id , token)
+}catch(err){
+    return res.status(500).json({message:"There Has Been a server error"})
+}
 
 
-qr = await qrcode.toBuffer(`http//localhost:8000/${token}`)
+const qr = await qrcode.toBuffer(`http://localhost:8000/Booking/${token}`)
 
     const transporter = nodemailer.createTransport({
         service: 'gmail',

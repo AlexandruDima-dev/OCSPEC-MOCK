@@ -12,7 +12,7 @@
         <p>Riget Zoo Adventure</p>
 
         <ul>
-        <li><a href="#">Dashboard</a></li>
+        <li><a href="/dashboard">Dashboard</a></li>
         <li><a href="#">Bookings</a></li>
         <li>
             <div class="dropdown">
@@ -32,7 +32,7 @@
 
   <div id="hero" class="hero-class">
     <h2 class="title">Hotel Bookings</h2>
-    <img src="/public/Images/Hotels.jpg">
+    <img src="/Images/Hotels.jpg">
   </div>
 
       <form action="/Hotel" method="post" class="Hotel-Booking-class">
@@ -42,8 +42,9 @@
         <input name="email" required placeholder="example@gmail.com">
         <br>
 
-        <label for="Hotel">Choose a fruit:</label>
+        <label for="Hotel">Choose a Hotel:</label>
         <select id="Hotel" name="Hotel">
+        <option value="nan">Select an Option</option>
         <option value="Safari">Safari</option>
         <option value="Tropical">Tropical</option>
         </select>
@@ -52,9 +53,9 @@
         <label>Amount of people</label><br>
         <input name="people" required placeholder="e.g 6 people"><br>
         <label>Start of stay</label><br>
-        <input type="datetime" required name="startdate"><br>
+        <input type="date" required name="startdate"><br>
         <label>End of stay</label><br>
-        <input type="datetime" required name="enddate">
+        <input type="date" required name="enddate">
         <p id="messages"></p>
         <br>
         <div class="butcon"><button id="class">Submit</button></div>
@@ -67,7 +68,7 @@
     <div class="card-one">
         <h2>Safari Lodges</h2>
         <br>
-        <img src="/public/Images/safari.jpeg">
+        <img src="/Images/safari.jpeg">
 
         <p>Tucked away in a serene natural landscape, Giffrae Lodges offers an intimate escape where luxury meets complete tranquillity. Designed for guests who value privacy, comfort, and refined simplicity, each lodge blends contemporary elegance with the warmth of a secluded hideaway.
             Spacious interiors, floor‑to‑ceiling windows, and thoughtfully curated furnishings create a calming atmosphere that invites you to slow down and unwind. Step onto your private terrace to enjoy sweeping views, soak in a premium outdoor hot tub, or savour a quiet morning coffee surrounded by nature.
@@ -81,7 +82,7 @@
     <div class="card-two">
         <h2>Tropical Room</h2>
 
-        <img src="/public/Images/Trop.avif">
+        <img src="/Images/Trop.avif">
 
         <p>
             Step into the Tropical Escape Room, where vibrant island energy meets refined comfort. Designed to feel like a private sanctuary tucked beneath palm leaves, this room surrounds you with warm textures, lush greenery, and sun‑kissed colours inspired by the world’s most beautiful coastlines.
