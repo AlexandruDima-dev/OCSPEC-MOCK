@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Your Bookings</title>
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+
+    </style>
+</head>
+<body>
+
+    <div class="navigation">
+        <p>Riget Zoo Adventure</p>
+
+        <ul>
+        <li><a href="/dashboard">Dashboard</a></li>
+        <li>
+            <div class="dropdown">
+            <button onclick="toggleDropdown()" class="dropbtn">
+                <img src="/Images/profile pic.png" alt="Profile">
+            </button>
+            <div id="dropdown" class="dropdown-content">
+                <a href="#">Settings</a>
+                <a href="/your-booking">Your Bookings</a>
+                <a href="/">Logout</a>
+            </div>
+            </div>
+        </li>
+        </ul>
+  </div>
+
+<h1>All Bookings</h1>
+
+<div id="bookings">Loading...</div>
+
+<script>
+async function loadBookings() {
+    const res = await fetch("/api/all-bookings");
+    const data = await res.json();
+
+    const container = document.getElementById("bookings");
+    container.innerHTML = "";
+
+    if (data.length === 0) {
+        container.innerHTML = "<p>No bookings found.</p>";
+        return;
+    }
+
+    data.forEach(b => {
+        container.innerHTML += `
+            <div class="booking">
+                <span class="tag ${b.type}">
+                    ${b.type === "hotel" ? "Hotel Booking" : "Educational Visit"}
+                </span>
+
+                <h3>${b.title}</h3>
+                <p><strong>Email:</strong> ${b.email}</p>
+
+                ${b.people ? `<p><strong>People:</strong> ${b.people}</p>` : ""}
+                <p><strong>Date:</strong> ${b.startdate}</p>
+                ${b.enddate ? `<p><strong>End Date:</strong> ${b.enddate}</p>` : ""}
+
+                <p><strong>Token:</strong> ${b.token}</p>
+            </div>
+        `;
+    });
+}
+
+loadBookings();
+</script>
+
+</body>
+</html>

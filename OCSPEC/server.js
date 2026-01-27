@@ -7,6 +7,7 @@ const qrcode = require("qrcode")
 const nodemailer = require("nodemailer")
 const PORT = 8000
 
+
 //Advanced Middleware
 
 const limiter = erl.rateLimit({
@@ -77,7 +78,13 @@ db.prepare(`
 
 
 
+
+
 //REGISTER
+
+app.get("/", (req,res)=>{
+    res.sendFile(path.join(path.join(__dirname, "public", "index.html")))
+})
 app.post("/dashboard", (req,res)=>{
     try{
         const { firstName, lastName, email, password} = req.body
@@ -234,6 +241,46 @@ const qr = await qrcode.toBuffer(`http://localhost:8000/Booking/${token}`)
     return res.status(200).redirect("/Booking")
 
 })
+
+
+app.get("/your-booking", (req,res)=>{
+    res.sendFile(path.join(__dirname, "public", "userbookings.html"))
+})
+
+app.get("/api/all-bookings", (req, res) => {
+    try {
+        const hotelBookings = db.prepare(`
+            SELECT 
+                id,
+                email,
+                Hotel AS title,
+                people,
+                startdate,
+                enddate,
+                token,
+                'hotel' AS type
+            FROM hotel_bookings
+        `).all();
+
+        const eduBookings = db.prepare(`
+            SELECT
+                id,
+                email,
+                school AS title,
+                NULL AS people,
+                visit_date AS startdate,
+                NULL AS enddate,
+                token,
+                'educational' AS type
+            FROM educational_visits
+        `).all();
+
+        res.json([...hotelBookings, ...eduBookings]);
+    } catch (err) {
+        res.status(500).json({ message: "Server error" });
+    }
+});
+
 
 
 
