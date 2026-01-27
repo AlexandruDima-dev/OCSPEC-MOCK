@@ -60,6 +60,20 @@ db.prepare(`
     FOREIGN KEY (user_id) REFERENCES users(id)
     )`).run()
 
+    db.prepare(`
+        CREATE TABLE IF NOT EXISTS hotel_bookings(
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        user_id INTEGER NOT NULL,
+        email TEXT UNIQUE NOT NULL,
+        school TEXT NOT NULL,
+        startdate TEXT,
+        enddate TEXT,
+        token TEXT UNIQUE,
+        FOREIGN KEY (user_id) REFERENCES users(id)
+
+        )
+        `).run()
+
 
 
 //REGISTER
@@ -171,6 +185,61 @@ app.post("/Educational-Visits", async (req,res)=>{
 
 
 });
+
+// Hotel Booking
+
+app.get("/Hotel", (req,res)=>{
+    res.sendFile(path.join(__dirname, "public", "hotel.html" ))
+})
+
+app.post("/Hotel", async (req,res)=>{
+    const {email, Hotel, people, startdate, enddate} = req.body;
+    if(!email || !Hotel || !people || !startdate || !enddate){
+        res.status(401).json({message: "We couldnt find your  infomation"})
+    };
+
+    const token = crypto.randomUUID();
+
+    try{
+    const user = db.prepare("SELECT id FROM users WHERE email = ?").get(email)
+    if(!user){
+        res.status(400).json({
+            message:"Coudnt get user"
+        })
+    }
+
+    const user_id = user.id;
+
+
+    db.prepare("INSERT INTO hotel_bookings (email, Hotel, people, startdate, enddate, user_id, token) VALUES (?,?,?,?,?)").run(email, Hotel, people, startdate, enddate, user_id,token )
+} catch(err){
+    return res.status(500).json({
+        message:"There Has Been a server error"
+    });
+};
+
+
+qr = await qrcode.toBuffer(`http//localhost:8000/${token}`)
+
+    const transporter = nodemailer.createTransport({
+        service: 'gmail',
+        auth:{user: "alexandrucoding08@gmail.com", pass:"mknr sjyw oqcz cugv"}
+    });
+
+    await transporter.sendMail({
+        from: "alexandrucoding08@gmail.com",
+        to: email,
+        subject: "Your Room Has Been Has Been Booked!",
+        text:"Thank You for our booking, if  you  dosent arrive within an hour then booking will be cancled.",
+        attachments:[{
+            filename:"Your_QR_Code.png",
+            content:qr
+        }]
+    });
+
+    return res.status(200).redirect("/Booking")
+
+})
 
 
 
